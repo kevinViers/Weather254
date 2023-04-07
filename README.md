@@ -1,4 +1,4 @@
-# 254WeatherApp
+# 254WeatherApp (real)
 weather app for cpsc 254 2023 spring
 
 Is this thing on?
