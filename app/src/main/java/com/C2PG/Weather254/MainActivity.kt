@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
             .build()
             .create(ApiInterface::class.java)
 
-        val retrofitData = retrofitBuilder.getData()
+        val retrofitData = retrofitBuilder.getData("fullerton", "yes")
 
         retrofitData.enqueue(object: Callback<weatherData>
         {
