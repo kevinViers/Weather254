@@ -31,7 +31,7 @@
             android:layout_height="60dp"
             android:layout_marginEnd="10dp"
             android:contextClickable="true"
-            android:text="Weather Today"
+            android:text="@string/app_name"
             />
 
         <Button
@@ -40,62 +40,37 @@
             android:layout_height="60dp"
             android:layout_marginEnd="10dp"
             android:layout_toRightOf="@+id/home_button"
-            android:text="Forecast"/>
+            android:text="@string/locations_button_text"/>
 
         <Button
             android:id="@+id/settings_button"
             android:layout_width="120dp"
             android:layout_height="60dp"
             android:layout_toRightOf="@+id/locations_button"
-            android:text="Game"/>
+            android:text="@string/settings_button_text"/>
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/lightBlue"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical">
 
         <ImageButton
             android:id="@+id/settings"
             android:layout_width="68dp"
             android:layout_height="match_parent"
             android:contentDescription="settings"
-            app:srcCompat="@drawable/sidebar"/>
-
-        <TextView
-            android:id="@+id/headerLocationName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:text="@string/app_name"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:id="@+id/currentTempTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:textColor="@android:color/black"
-            android:text="Current Temperature: "
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/zipCodeEditText"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintVertical_bias="0.0" />
-
+            app:srcCompat="@drawable/sidebar" />
 
         <EditText
             android:id="@+id/zipCodeInput"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:ems="10"
             android:hint="@string/zip_code_hint"
             android:inputType="number"
             android:maxLines="1"
@@ -103,7 +78,7 @@
             android:paddingEnd="10dp"
             android:textColor="@color/black"
             android:textSize="24sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/searchButton"
@@ -112,9 +87,33 @@
             android:text="@string/search_button_text"
             android:textColor="@color/black"
             android:textSize="24sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/currentTempTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginStart="20dp" />
+
 
     </LinearLayout>
+
+    <!-- Define a TextView to display the current temperature -->
+    <TextView
+        android:id="@+id/headerLocationName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="48sp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="48dp"/>
+
+
 
 
 
