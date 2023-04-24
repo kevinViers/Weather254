@@ -5,5 +5,8 @@
     <string name="search_button_text">Search</string>
     <string name="locations_button_text">Locations</string>
     <string name="settings_button_text">Settings</string>
-
+    <string name="Temp">Temp</string>
+    <string name="Humidity">Humidity</string>
+    <string name="Wind">Wind</string>
+    <string name="airquality">Air Quality</string>
 </resources>
