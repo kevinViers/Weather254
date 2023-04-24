@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!-- Define the layout as a ConstraintLayout -->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,9 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <!-- Define the floating action button -->
-
-    <!-- Add buttons for home, saved locations, and settings -->
+    <!-- Define the buttons layout -->
     <RelativeLayout
         android:id="@+id/buttons_layout"
         android:layout_width="0dp"
@@ -24,7 +22,7 @@
         android:background="@color/lightBlue"
         >
 
-
+        <!-- Define the home button -->
         <Button
             android:id="@+id/home_button"
             android:layout_width="120dp"
@@ -34,6 +32,7 @@
             android:text="@string/app_name"
             />
 
+        <!-- Define the saved locations button -->
         <Button
             android:id="@+id/locations_button"
             android:layout_width="120dp"
@@ -42,6 +41,7 @@
             android:layout_toRightOf="@+id/home_button"
             android:text="@string/locations_button_text"/>
 
+        <!-- Define the settings button -->
         <Button
             android:id="@+id/settings_button"
             android:layout_width="120dp"
@@ -50,7 +50,7 @@
             android:text="@string/settings_button_text"/>
     </RelativeLayout>
 
-
+    <!-- Define the top layout -->
     <LinearLayout
         android:id="@+id/top_layout"
         android:layout_width="match_parent"
@@ -60,6 +60,7 @@
         android:padding="16dp"
         android:gravity="center_vertical">
 
+        <!-- Define the settings button as an image button -->
         <ImageButton
             android:id="@+id/settings"
             android:layout_width="68dp"
@@ -67,7 +68,7 @@
             android:contentDescription="settings"
             app:srcCompat="@drawable/sidebar" />
 
-        <!-- Define a TextView to display the current temperature -->
+        <!-- Define a TextView to display the location name -->
         <TextView
             android:id="@+id/headerLocationName"
             android:layout_width="wrap_content"
@@ -76,52 +77,56 @@
             android:textColor="@color/black"
             />
 
+        <!-- Define a TextView to display the current temperature -->
+        <TextView
+            android:id="@+id/currentTempTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginStart="20dp" />
 
-     <TextView
-         android:id="@+id/currentTempTextView"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:textColor="@color/black"
-         android:textSize="24sp"
-         android:textStyle="bold"
-         android:layout_marginStart="20dp" />
+    </LinearLayout>
 
-
- </LinearLayout>
-
- <LinearLayout
-     android:id="@+id/search_layout"
-     android:layout_width="match_parent"
-     android:layout_height="wrap_content"
-     android:orientation="horizontal"
-     android:gravity="center"
-     android:layout_margin="20dp"
-     app:layout_constraintTop_toBottomOf="@+id/top_layout">
-
-     <EditText
-         android:id="@+id/zipCodeInput"
-         android:layout_width="0dp"
-         android:layout_height="wrap_content"
-         android:layout_weight="1"
-         android:background="@android:color/transparent"
-         android:hint="@string/zip_code_hint"
-         android:inputType="number"
-         android:maxLines="1"
-         android:paddingStart="10dp"
-         android:paddingEnd="10dp"
-         android:textColor="@color/black"
-         android:textSize="24sp"
-         android:textStyle="bold" />
+    <!-- Define the search layout -->
+    <LinearLayout
+        android:id="@+id/search_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_margin="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/top_layout">
 
 
-     <Button
-         android:id="@+id/searchButton"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:text="@string/search_button_text"
-         android:textColor="@color/white"
-         android:textSize="24sp"
-         android:textStyle="bold" />
+
+    <!-- A text input for the user to enter their zip code -->
+    <EditText
+        android:id="@+id/zipCodeInput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:hint="@string/zip_code_hint"
+        android:inputType="number"
+        android:maxLines="1"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <!-- A button to initiate the search -->
+    <Button
+        android:id="@+id/searchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/search_button_text"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
 
  </LinearLayout>
  <LinearLayout
@@ -131,14 +136,14 @@
      android:orientation="horizontal"
      android:gravity="center"
      android:layout_margin="20dp"
-     app:layout_constraintTop_toBottomOf="@+id/search_layout"
-
-     >
+     app:layout_constraintTop_toBottomOf="@+id/search_layout" >
+     <!-- A vertical LinearLayout to display the morning temperature -->
      <LinearLayout
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:orientation="vertical"
          android:gravity="center">
+
          <TextView
              android:id="@+id/Morning"
              android:layout_width="wrap_content"
@@ -146,18 +151,22 @@
              android:text="Morning"
              android:textSize="20dp">
          </TextView>
+
          <Space
              android:layout_width="50dp"
              android:layout_height="wrap_content">
 
          </Space>
+
+         <!-- An ImageView to display the weather condition for the morning -->
          <ImageView
              android:id="@+id/tem_Morning"
              android:layout_width="50dp"
              android:layout_height="50dp"
-             android:src="@drawable/sunny"
-             >
+             android:src="@drawable/sunny">
          </ImageView>
+
+         <!-- A TextView to display the temperature for the morning -->
          <TextView
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
@@ -165,16 +174,19 @@
              android:textSize="20dp">
          </TextView>
      </LinearLayout>
+
      <Space
          android:layout_width="50dp"
          android:layout_height="wrap_content">
-
      </Space>
+
+     <!-- A vertical LinearLayout to display the day temperature -->
      <LinearLayout
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:orientation="vertical"
          android:gravity="center">
+
          <TextView
              android:id="@+id/Day"
              android:layout_width="wrap_content"
@@ -182,11 +194,15 @@
              android:text="Day"
              android:textSize="20dp">
          </TextView>
+
          <Space
              android:layout_width="50dp"
              android:layout_height="wrap_content">
 
          </Space>
+
+         <!-- Display the weather condition for the day with an image -->
+
          <ImageView
              android:id="@+id/tem_Day"
              android:layout_width="50dp"
@@ -194,35 +210,22 @@
              android:src="@drawable/sunny"
              >
          </ImageView>
+         <!-- Display the temperature for the day in Celsius -->
+
          <TextView
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:text="78*C"
              android:textSize="20dp">
          </TextView>
-     </LinearLayout>
-     <Space
-         android:layout_width="50dp"
-         android:layout_height="wrap_content">
+         <!-- Add space between the Day and Night weather sections -->
 
-     </Space>
-     <LinearLayout
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:orientation="vertical"
-         android:gravity="center">
-         <TextView
-             android:id="@+id/Night"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:text="Night"
-             android:textSize="20dp">
-         </TextView>
          <Space
              android:layout_width="50dp"
              android:layout_height="wrap_content">
-
          </Space>
+         <!-- Display the weather condition for the night with an image -->
+
          <ImageView
              android:id="@+id/tem_Night"
              android:layout_width="50dp"
@@ -230,6 +233,8 @@
              android:src="@drawable/rain"
              >
          </ImageView>
+         <!-- Display the temperature for the night in Celsius -->
+
          <TextView
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
@@ -237,12 +242,5 @@
              android:textSize="20dp">
          </TextView>
      </LinearLayout>
- </LinearLayout>
-
-
-
-
-
-
-
+     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
