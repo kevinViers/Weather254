@@ -10,4 +10,6 @@
     <color name="colorAccent">#FF4081</color>
     <color name="lightBlue">#E0F3FF</color>
     <color name="red">#FF0000</color>
+    <color name="lighter_gray">#ddd</color>
+
 </resources>
