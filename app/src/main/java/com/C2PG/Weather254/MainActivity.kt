@@ -22,6 +22,16 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
+        // Set a click listener on the search button
+        binding.searchButton.setOnClickListener {
+            // Get the zip code entered by the user
+            val zipCode = binding.zipCodeInput.text.toString()
+
+            // Call getMyData() with the entered zip code
+            getMyData(zipCode, false)
+        }
+
+        // Call getMyData() with a default zip code
         getMyData("92831", false)
     }
 
@@ -46,7 +56,7 @@ class MainActivity : AppCompatActivity() {
                 else if (response.isSuccessful && game)
                 {
                     val temp = response.body()!!.current.temp_f
-
+                    binding.currentTempTextView.text = temp.toString() + "°F"
                 }
                 else if (!response.isSuccessful && game)
                 {
@@ -64,11 +74,11 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
-    private fun showData(responseBody: weatherData)
-    {
+    private fun showData(responseBody: weatherData) {
         binding.headerLocationName.text = responseBody.location.name
-
+        binding.currentTempTextView.text = "${responseBody.current.temp_f}°F"
     }
+
 
     //call twice when game is clicked to generate two zips
     private fun randZip()
@@ -80,4 +90,3 @@ class MainActivity : AppCompatActivity() {
         getMyData(newZipCode, true)
     }
 }
-
