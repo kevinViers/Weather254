@@ -88,6 +88,7 @@
 
 
  </LinearLayout>
+
  <LinearLayout
      android:id="@+id/search_layout"
      android:layout_width="match_parent"
@@ -118,7 +119,7 @@
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:text="@string/search_button_text"
-         android:textColor="@color/black"
+         android:textColor="@color/white"
          android:textSize="24sp"
          android:textStyle="bold" />
 
