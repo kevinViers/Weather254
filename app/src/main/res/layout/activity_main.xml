@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/offWhite"
     tools:context=".MainActivity">
 
     <!-- Define the buttons layout -->
@@ -73,7 +74,7 @@
             android:id="@+id/headerLocationName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="48dp"
+            android:textSize="30dp"
             android:textColor="@color/black"
             />
 
@@ -91,7 +92,6 @@
 
     <!-- Define the search layout -->
     <LinearLayout
-        android:id="@+id/search_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -99,6 +99,16 @@
         android:layout_margin="20dp"
         app:layout_constraintTop_toBottomOf="@+id/top_layout">
 
+ </LinearLayout>
+ <LinearLayout
+     android:background="@color/lightBlue"
+     android:id="@+id/search_layout"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:orientation="horizontal"
+     android:gravity="center"
+     android:layout_margin="20dp"
+     app:layout_constraintTop_toBottomOf="@+id/top_layout">
 
 
     <!-- A text input for the user to enter their zip code -->
@@ -117,16 +127,15 @@
         android:textSize="24sp"
         android:textStyle="bold" />
 
-    <!-- A button to initiate the search -->
-    <Button
-        android:id="@+id/searchButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/search_button_text"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        android:textStyle="bold" />
 
+     <Button
+         android:id="@+id/searchButton"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="@string/search_button_text"
+         android:textColor="@color/white"
+         android:textSize="24sp"
+         android:textStyle="bold" />
 
  </LinearLayout>
  <LinearLayout
@@ -135,6 +144,7 @@
      android:layout_height="wrap_content"
      android:orientation="horizontal"
      android:gravity="center"
+     android:background="@color/lightBlue"
      android:layout_margin="20dp"
      app:layout_constraintTop_toBottomOf="@+id/search_layout" >
      <!-- A vertical LinearLayout to display the morning temperature -->
@@ -168,10 +178,11 @@
 
          <!-- A TextView to display the temperature for the morning -->
          <TextView
+             android:id="@+id/morningTemp"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:text="78*C"
-             android:textSize="20dp">
+             android:text="78°F"
+             android:textSize="20sp">
          </TextView>
      </LinearLayout>
 
@@ -192,7 +203,7 @@
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:text="Day"
-             android:textSize="20dp">
+             android:textSize="20sp">
          </TextView>
 
          <Space
@@ -213,10 +224,11 @@
          <!-- Display the temperature for the day in Celsius -->
 
          <TextView
+             android:id="@+id/dayTemp"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:text="78*C"
-             android:textSize="20dp">
+             android:text="78°F"
+             android:textSize="20sp">
          </TextView>
          <!-- Add space between the Day and Night weather sections -->
 
@@ -236,10 +248,11 @@
          <!-- Display the temperature for the night in Celsius -->
 
          <TextView
+             android:id="@+id/nightTemp"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:text="78*C"
-             android:textSize="20dp">
+             android:text="78°F"
+             android:textSize="20sp">
          </TextView>
      </LinearLayout>
      </LinearLayout>
