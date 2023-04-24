@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Weather</string>
+    <string name="app_name">Weather254</string>
     <string name="app_name2">Weather App</string>
     <string name="zip_code_hint">Enter zip code</string>
     <string name="search_button_text">Search</string>

@@ -2,7 +2,6 @@
 package com.C2PG.Weather254
 
 // Import necessary classes and libraries
-import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
@@ -41,15 +40,15 @@ class MainActivity : AppCompatActivity() {
             val zipCode = binding.zipCodeInput.text.toString()
 
             // Call the getMyData function with the entered zip code
-            getMyData(zipCode)
+            getMyData(zipCode, false)
         }
 
         // Call the getMyData function with a default zip code
-        getMyData("92831")
+        getMyData("92831", false)
     }
 
     // Define a function to retrieve weather data from the API
-    private fun getMyData(zipCode: String) {
+    private fun getMyData(zipCode: String, game: Boolean) {
         // Create a retrofit builder with the base URL and Gson converter
         val retrofitBuilder = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
@@ -64,9 +63,18 @@ class MainActivity : AppCompatActivity() {
         retrofitData.enqueue(object: Callback<weatherData> {
             override fun onResponse(call: Call<weatherData>, response: Response<weatherData>) {
                 // If the response is successful and not for the game, show the weather data
-                if (response.isSuccessful) {
+                if (response.isSuccessful && !game) {
                     val responseBody = response.body()!!
                     showData(responseBody)
+                }
+                // If the response is successful and for the game, update the current temperature text view
+                else if (response.isSuccessful && game) {
+                    val temp = response.body()!!.current.temp_f
+                    currentTempTextView.text = temp.toString() + "°F"
+                }
+                // If the response is not successful and for the game, generate a random zip code and try again
+                else if (!response.isSuccessful && game) {
+                    randZip()
                 }
                 // Otherwise, display an error message
                 else {
@@ -80,13 +88,19 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
-    @SuppressLint("SetTextI18n")
-    private fun showData(responseBody: weatherData) {
 
+    // Define a function to display weather data
+    private fun showData(responseBody: weatherData) {
         binding.headerLocationName.text = responseBody.location.name
         currentTempTextView.text = "${responseBody.current.temp_f}°F"
-        binding.morningTemp.text = "${responseBody.forecast.forecastday[0].hour[7].temp_f.toString()}°F"
-        binding.dayTemp.text = "${responseBody.forecast.forecastday[0].hour[14].temp_f.toString()}°F"
-        binding.nightTemp.text = "${responseBody.forecast.forecastday[0].hour[21].temp_f.toString()}°F"
+    }
+
+    // Call twice when game is clicked to generate two zips
+    private fun randZip() {
+        val random = Random
+        val zipCode = random.nextInt(99999 - 10000) + 10000
+        val newZipCode = String.format("%05d", zipCode)
+
+        getMyData(newZipCode, true)
     }
 }
