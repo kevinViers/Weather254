@@ -50,7 +50,9 @@
             android:text="@string/settings_button_text"/>
     </RelativeLayout>
 
+
     <LinearLayout
+        android:id="@+id/top_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/lightBlue"
@@ -65,53 +67,178 @@
             android:contentDescription="settings"
             app:srcCompat="@drawable/sidebar" />
 
-        <EditText
-            android:id="@+id/zipCodeInput"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:hint="@string/zip_code_hint"
-            android:inputType="number"
-            android:maxLines="1"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/searchButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/search_button_text"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
+        <!-- Define a TextView to display the current temperature -->
         <TextView
-            android:id="@+id/currentTempTextView"
+            android:id="@+id/headerLocationName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="48dp"
             android:textColor="@color/black"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_marginStart="20dp" />
+            />
 
 
-    </LinearLayout>
+     <TextView
+         android:id="@+id/currentTempTextView"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:textColor="@color/black"
+         android:textSize="24sp"
+         android:textStyle="bold"
+         android:layout_marginStart="20dp" />
 
-    <!-- Define a TextView to display the current temperature -->
-    <TextView
-        android:id="@+id/headerLocationName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="48sp"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="48dp"/>
+
+ </LinearLayout>
+ <LinearLayout
+     android:id="@+id/search_layout"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:orientation="horizontal"
+     android:gravity="center"
+     android:layout_margin="20dp"
+     app:layout_constraintTop_toBottomOf="@+id/top_layout">
+
+     <EditText
+         android:id="@+id/zipCodeInput"
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+         android:layout_weight="1"
+         android:background="@android:color/transparent"
+         android:hint="@string/zip_code_hint"
+         android:inputType="number"
+         android:maxLines="1"
+         android:paddingStart="10dp"
+         android:paddingEnd="10dp"
+         android:textColor="@color/black"
+         android:textSize="24sp"
+         android:textStyle="bold" />
+
+
+     <Button
+         android:id="@+id/searchButton"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="@string/search_button_text"
+         android:textColor="@color/black"
+         android:textSize="24sp"
+         android:textStyle="bold" />
+
+ </LinearLayout>
+ <LinearLayout
+     android:id="@+id/weather_layout"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:orientation="horizontal"
+     android:gravity="center"
+     android:layout_margin="20dp"
+     app:layout_constraintTop_toBottomOf="@+id/search_layout"
+
+     >
+     <LinearLayout
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:orientation="vertical"
+         android:gravity="center">
+         <TextView
+             android:id="@+id/Morning"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Morning"
+             android:textSize="20dp">
+         </TextView>
+         <Space
+             android:layout_width="50dp"
+             android:layout_height="wrap_content">
+
+         </Space>
+         <ImageView
+             android:id="@+id/tem_Morning"
+             android:layout_width="50dp"
+             android:layout_height="50dp"
+             android:src="@drawable/sunny"
+             >
+         </ImageView>
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="78*C"
+             android:textSize="20dp">
+         </TextView>
+     </LinearLayout>
+     <Space
+         android:layout_width="50dp"
+         android:layout_height="wrap_content">
+
+     </Space>
+     <LinearLayout
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:orientation="vertical"
+         android:gravity="center">
+         <TextView
+             android:id="@+id/Day"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Day"
+             android:textSize="20dp">
+         </TextView>
+         <Space
+             android:layout_width="50dp"
+             android:layout_height="wrap_content">
+
+         </Space>
+         <ImageView
+             android:id="@+id/tem_Day"
+             android:layout_width="50dp"
+             android:layout_height="50dp"
+             android:src="@drawable/sunny"
+             >
+         </ImageView>
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="78*C"
+             android:textSize="20dp">
+         </TextView>
+     </LinearLayout>
+     <Space
+         android:layout_width="50dp"
+         android:layout_height="wrap_content">
+
+     </Space>
+     <LinearLayout
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:orientation="vertical"
+         android:gravity="center">
+         <TextView
+             android:id="@+id/Night"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Night"
+             android:textSize="20dp">
+         </TextView>
+         <Space
+             android:layout_width="50dp"
+             android:layout_height="wrap_content">
+
+         </Space>
+         <ImageView
+             android:id="@+id/tem_Night"
+             android:layout_width="50dp"
+             android:layout_height="50dp"
+             android:src="@drawable/rain"
+             >
+         </ImageView>
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="78*C"
+             android:textSize="20dp">
+         </TextView>
+     </LinearLayout>
+ </LinearLayout>
+
+
 
 
 
