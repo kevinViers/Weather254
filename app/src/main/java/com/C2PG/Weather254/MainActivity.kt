@@ -16,15 +16,44 @@ import kotlin.random.Random
 
 // Define the base URL for the API
 private const val bURL = "https://api.weatherapi.com/v1/"
+private const val API: String = "e55db302eb8c403a89801251232504"
 
 // Define the main activity class
 class MainActivity : AppCompatActivity() {
+
 
     // Declare variables for view binding and text display
     private lateinit var binding: ActivityMainBinding
     private lateinit var currentTempTextView: TextView
     private lateinit var cityTextView: TextView
     private lateinit var stateTextView: TextView
+    private lateinit var maxTemp: TextView
+    private lateinit var minTemp: TextView
+    // Declare variables for forecast in main activity
+    private lateinit var timeForecast1: TextView
+    private lateinit var timeForecast2: TextView
+    private lateinit var timeForecast3: TextView
+    private lateinit var timeForecast4: TextView
+    private lateinit var tempForecast1: TextView
+    private lateinit var tempForecast2: TextView
+    private lateinit var tempForecast3: TextView
+    private lateinit var tempForecast4: TextView
+    private lateinit var humidity1: TextView
+    private lateinit var humidity2: TextView
+    private lateinit var humidity3: TextView
+    private lateinit var humidity4: TextView
+    private lateinit var windForecast1: TextView
+    private lateinit var windForecast2: TextView
+    private lateinit var windForecast3: TextView
+    private lateinit var windForecast4: TextView
+    private lateinit var airquality1: TextView
+    private lateinit var airquality2: TextView
+    private lateinit var airquality3: TextView
+    private lateinit var airquality4: TextView
+
+
+
+
 
     // Define the activity creation function
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +64,32 @@ class MainActivity : AppCompatActivity() {
 
         // Get the text view for displaying current temperature
         currentTempTextView = binding.currentTempTextView
+
+        // Get the text view for displaying min and max temperature
+        maxTemp = binding.maxTempTextView
+        minTemp = binding.minTempTextView
+
+        // Get the text view for displaying forecast info
+        timeForecast1 = binding.timeForecast1
+        timeForecast2 = binding.timeForecast2
+        timeForecast3 = binding.timeForecast3
+        timeForecast4 = binding.timeForecast4
+        tempForecast1 = binding.tempForecast1
+        tempForecast2 = binding.tempForecast2
+        tempForecast3 = binding.tempForecast3
+        tempForecast4 = binding.tempForecast4
+        humidity1 = binding.humidity1
+        humidity2 = binding.humidity2
+        humidity3 = binding.humidity3
+        humidity4 = binding.humidity4
+        windForecast1 = binding.windForcast1
+        windForecast2 = binding.windForcast2
+        windForecast3 = binding.windForcast3
+        windForecast4 = binding.windForcast4
+        airquality1 = binding.airquality1
+        airquality2 = binding.airquality2
+        airquality3 = binding.airquality3
+        airquality4 = binding.airquality4
 
         // Set a click listener on the search button
         binding.searchButton.setOnClickListener {
@@ -119,6 +174,33 @@ class MainActivity : AppCompatActivity() {
 
         val currentTempString = getString(R.string.current_temp, responseBody.current.temp_f.toString())
         currentTempTextView.text = currentTempString
+        val maxTempString = getString(R.string.temperature, responseBody.forecast.forecastday[0].day.maxtemp_f)
+        maxTemp.text = maxTempString
+        minTemp.text = "${responseBody.forecast.forecastday[0].day.mintemp_f}"
+
+        // forecast within 4 hours
+        timeForecast1.text = "${responseBody.forecast.forecastday[1].hour[1].time}"
+        timeForecast2.text = "${responseBody.forecast.forecastday[1].hour[2].time}"
+        timeForecast3.text = "${responseBody.forecast.forecastday[1].hour[3].time}"
+        timeForecast4.text = "${responseBody.forecast.forecastday[1].hour[4].time}"
+        tempForecast1.text = "${responseBody.forecast.forecastday[1].hour[1].temp_f}"
+        tempForecast2.text = "${responseBody.forecast.forecastday[1].hour[2].temp_f}"
+        tempForecast3.text = "${responseBody.forecast.forecastday[1].hour[3].temp_f}"
+        tempForecast4.text = "${responseBody.forecast.forecastday[1].hour[4].temp_f}"
+        humidity1.text = "${responseBody.forecast.forecastday[1].hour[1].humidity}%"
+        humidity2.text = "${responseBody.forecast.forecastday[1].hour[2].humidity}%"
+        humidity3.text = "${responseBody.forecast.forecastday[1].hour[3].humidity}%"
+        humidity4.text = "${responseBody.forecast.forecastday[1].hour[4].humidity}%"
+        windForecast1.text = "${responseBody.forecast.forecastday[1].hour[1].wind_mph} MPH"
+        windForecast2.text = "${responseBody.forecast.forecastday[1].hour[2].wind_mph} MPH"
+        windForecast3.text = "${responseBody.forecast.forecastday[1].hour[3].wind_mph} MPH"
+        windForecast4.text = "${responseBody.forecast.forecastday[1].hour[4].wind_mph} MPH"
+        airquality1.text = "${responseBody.forecast.forecastday[1].hour[1].air_quality.pm2_5}"
+        airquality2.text = "${responseBody.forecast.forecastday[1].hour[2].air_quality.pm2_5}"
+        airquality3.text = "${responseBody.forecast.forecastday[1].hour[3].air_quality.pm2_5}"
+        airquality4.text = "${responseBody.forecast.forecastday[1].hour[4].air_quality.pm2_5}"
+
+
 
     }
 

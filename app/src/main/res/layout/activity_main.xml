@@ -59,63 +59,47 @@
         android:layout_height="wrap_content"
         android:background="@color/lightBlue"
         android:orientation="horizontal"
+        android:padding="16dp"
         android:gravity="center_vertical"
         tools:ignore="MissingConstraints">
-
-        <!-- Define a TextView to display the city name -->
-        <TextView
-            android:id="@+id/headerLocationNameCity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:paddingEnd="10dp"/>
-
-
-
-        <!-- Define a TextView to display the state name -->
-        <TextView
-            android:id="@+id/headerLocationNameState"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textColor="@color/black"/>
-
 
         <!-- Define the settings button as an image button -->
         <ImageButton
             android:id="@+id/settings"
             android:layout_width="68dp"
             android:layout_height="match_parent"
-            android:contentDescription="@string/settings_button_description"
+            android:contentDescription="settings"
             app:srcCompat="@drawable/sidebar" />
 
+        <!-- Define a TextView to display the state name -->
+        <TextView
+            android:id="@+id/headerLocationNameState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textColor="@color/black"/>
 
-        <!-- Define a TextView to display the location name -->
+        <!-- Define a TextView to display the city name -->
+        <TextView
+            android:id="@+id/headerLocationNameCity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            />
 
-
-        <!-- Define a TextView to display the current temperature -->
         <TextView
             android:id="@+id/header_location_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:ellipsize="end"
             android:text="City Name"
             android:textSize="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
-        <TextView
-            android:id="@+id/currentTempTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_marginStart="20dp" />
 
     </LinearLayout>
 
@@ -130,7 +114,8 @@
         android:background="@color/lightGray"
         android:backgroundTint="@color/lightBlue"
         android:backgroundTintMode="multiply"
-        app:layout_constraintTop_toBottomOf="@+id/top_layout">
+        app:layout_constraintTop_toBottomOf="@+id/top_layout"
+         >
 
         <!-- A text input for the user to enter their zip code -->
         <EditText
@@ -180,10 +165,10 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/Morning"
+                android:id="@+id/MinTemp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Morning"
+                android:text="Min_temp"
                 android:textSize="20dp"></TextView>
 
             <Space
@@ -194,15 +179,16 @@
 
             <ImageView
                 android:id="@+id/tem_Morning"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:src="@drawable/sunny"></ImageView>
 
             <TextView
+                android:id="@+id/minTempTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="78*C"
-                android:textSize="20dp"></TextView>
+                android:textSize="30dp"></TextView>
         </LinearLayout>
 
         <Space
@@ -218,10 +204,10 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/Day"
+                android:id="@+id/current"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Day"
+                android:text="Current"
                 android:textSize="20dp"></TextView>
 
             <Space
@@ -232,15 +218,16 @@
 
             <ImageView
                 android:id="@+id/tem_Day"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:src="@drawable/sunny"></ImageView>
 
             <TextView
+                android:id="@+id/currentTempTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="78*C"
-                android:textSize="20dp"></TextView>
+                android:textSize="30dp"></TextView>
         </LinearLayout>
 
         <Space
@@ -256,10 +243,10 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/Night"
+                android:id="@+id/MaxTemp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Night"
+                android:text="Max_temp"
                 android:textSize="20dp"></TextView>
 
             <Space
@@ -270,21 +257,22 @@
 
             <ImageView
                 android:id="@+id/tem_Night"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:src="@drawable/rain"></ImageView>
 
             <TextView
+                android:id="@+id/maxTempTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="78*C"
-                android:textSize="20dp"></TextView>
+                android:textSize="30dp"></TextView>
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/tem1_layout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
@@ -298,7 +286,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center"
-            android:layout_marginLeft="5dp">
+            android:layout_marginLeft="5dp"
+            >
 
             <ImageView
                 android:id="@+id/img_Temp1"
@@ -309,6 +298,7 @@
             </ImageView>
 
             <TextView
+                android:id="@+id/tempForecast1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="78*C"
@@ -383,6 +373,7 @@
                 android:src="@drawable/wind"></ImageView>
 
             <TextView
+                android:id="@+id/windForcast1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="SE 3 MPH"
@@ -419,6 +410,7 @@
                 android:src="@drawable/airquality"></ImageView>
 
             <TextView
+                android:id="@+id/airquality1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="88"
@@ -439,7 +431,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/currenTime1"
+            android:id="@+id/timeForecast1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="10:00 AM"
@@ -449,7 +441,7 @@
 
     <LinearLayout
         android:id="@+id/tem3_layout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/lightGray"
         android:gravity="center"
@@ -473,6 +465,7 @@
                 android:src="@drawable/thermometer"></ImageView>
 
             <TextView
+                android:id="@+id/tempForecast3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="78*C"
@@ -550,6 +543,7 @@
                 android:src="@drawable/wind"></ImageView>
 
             <TextView
+                android:id="@+id/windForcast3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="SE 3 MPH"
@@ -588,6 +582,7 @@
                 android:src="@drawable/airquality"></ImageView>
 
             <TextView
+                android:id="@+id/airquality3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="88"
@@ -608,7 +603,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/current_time3"
+            android:id="@+id/timeForecast3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="12:00 AM"
@@ -617,7 +612,7 @@
 
     <LinearLayout
         android:id="@+id/tem2_layout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/lightGray"
         android:gravity="center"
@@ -640,6 +635,7 @@
                 android:src="@drawable/thermometer"></ImageView>
 
             <TextView
+                android:id="@+id/tempForecast2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="78*C"
@@ -717,6 +713,7 @@
                 android:src="@drawable/wind"></ImageView>
 
             <TextView
+                android:id="@+id/windForcast2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="SE 3 MPH"
@@ -755,6 +752,7 @@
                 android:src="@drawable/airquality"></ImageView>
 
             <TextView
+                android:id="@+id/airquality2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="88"
@@ -775,7 +773,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/current_time2"
+            android:id="@+id/timeForecast2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="11:00 AM"
@@ -784,7 +782,7 @@
 
     <LinearLayout
         android:id="@+id/tem4_layout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/lightGray"
         android:gravity="center"
@@ -807,6 +805,7 @@
                 android:src="@drawable/thermometer"></ImageView>
 
             <TextView
+                android:id="@+id/tempForecast4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="78*C"
@@ -884,6 +883,7 @@
                 android:src="@drawable/wind"></ImageView>
 
             <TextView
+                android:id="@+id/windForcast4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="SE 3 MPH"
@@ -922,6 +922,7 @@
                 android:src="@drawable/airquality"></ImageView>
 
             <TextView
+                android:id="@+id/airquality4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="88"
@@ -942,7 +943,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/current_time4"
+            android:id="@+id/timeForecast4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="13:00 AM"
