@@ -178,7 +178,7 @@
             </Space>
 
             <ImageView
-                android:id="@+id/tem_Morning"
+                android:id="@+id/min_temp"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:src="@drawable/sunny"></ImageView>
@@ -217,7 +217,7 @@
             </Space>
 
             <ImageView
-                android:id="@+id/tem_Day"
+                android:id="@+id/current_temp"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:src="@drawable/sunny"></ImageView>
@@ -256,7 +256,7 @@
             </Space>
 
             <ImageView
-                android:id="@+id/tem_Night"
+                android:id="@+id/max_temp"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:src="@drawable/rain"></ImageView>
@@ -280,7 +280,7 @@
         app:layout_constraintBottom_toTopOf="@+id/tem2_layout"
         android:paddingTop="5dp"
         android:background="@color/lightGray"
-        >
+        tools:ignore="MissingConstraints">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -407,10 +407,10 @@
                 android:id="@+id/img_AirQuality1"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/airquality"></ImageView>
+                android:src="@drawable/gauge"></ImageView>
 
             <TextView
-                android:id="@+id/airquality1"
+                android:id="@+id/airPressure1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="88"
@@ -422,10 +422,9 @@
 
             </Space>
             <TextView
-                android:id="@+id/AirQuality1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/airquality"
+                android:text="ATM"
                 android:textSize="18dp">
             </TextView>
         </LinearLayout>
@@ -449,7 +448,8 @@
         android:paddingTop="5dp"
         app:layout_constraintBottom_toTopOf="@+id/tem4_layout"
         app:layout_constraintTop_toBottomOf="@id/tem2_layout"
-        tools:layout_editor_absoluteX="0dp">
+        tools:layout_editor_absoluteX="0dp"
+        tools:ignore="MissingConstraints">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -579,10 +579,10 @@
                 android:id="@+id/img_AirQuality3"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/airquality"></ImageView>
+                android:src="@drawable/gauge"></ImageView>
 
             <TextView
-                android:id="@+id/airquality3"
+                android:id="@+id/airPressure3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="88"
@@ -595,10 +595,9 @@
             </Space>
 
             <TextView
-                android:id="@+id/AirQuality3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/airquality"
+                android:text = "ATM"
                 android:textSize="18dp"></TextView>
         </LinearLayout>
 
@@ -619,7 +618,8 @@
         android:orientation="horizontal"
         android:paddingTop="5dp"
         app:layout_constraintTop_toBottomOf="@+id/tem1_layout"
-        app:layout_constraintBottom_toTopOf="@+id/tem3_layout">
+        app:layout_constraintBottom_toTopOf="@+id/tem3_layout"
+        tools:ignore="MissingConstraints">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -749,10 +749,10 @@
                 android:id="@+id/img_AirQuality2"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/airquality"></ImageView>
+                android:src="@drawable/gauge"></ImageView>
 
             <TextView
-                android:id="@+id/airquality2"
+                android:id="@+id/airPressure2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="88"
@@ -765,10 +765,9 @@
             </Space>
 
             <TextView
-                android:id="@+id/AirQuality2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/airquality"
+                android:text="ATM"
                 android:textSize="18dp"></TextView>
         </LinearLayout>
 
@@ -790,7 +789,7 @@
         android:paddingTop="5dp"
         app:layout_constraintBottom_toTopOf="@+id/buttons_layout"
         app:layout_constraintTop_toBottomOf="@+id/tem3_layout"
-        >
+        tools:ignore="MissingConstraints">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -919,10 +918,10 @@
                 android:id="@+id/img_AirQuality4"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/airquality"></ImageView>
+                android:src="@drawable/gauge"></ImageView>
 
             <TextView
-                android:id="@+id/airquality4"
+                android:id="@+id/airPressure4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="88"
@@ -935,10 +934,9 @@
             </Space>
 
             <TextView
-                android:id="@+id/AirQuality4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/airquality"
+                android:text = "ATM"
                 android:textSize="18dp"></TextView>
         </LinearLayout>
 

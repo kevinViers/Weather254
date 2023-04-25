@@ -46,10 +46,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var windForecast2: TextView
     private lateinit var windForecast3: TextView
     private lateinit var windForecast4: TextView
-    private lateinit var airquality1: TextView
-    private lateinit var airquality2: TextView
-    private lateinit var airquality3: TextView
-    private lateinit var airquality4: TextView
+    private lateinit var airPressure1: TextView
+    private lateinit var airPressure2: TextView
+    private lateinit var airPressure3: TextView
+    private lateinit var airPressure4: TextView
 
 
 
@@ -86,10 +86,10 @@ class MainActivity : AppCompatActivity() {
         windForecast2 = binding.windForcast2
         windForecast3 = binding.windForcast3
         windForecast4 = binding.windForcast4
-        airquality1 = binding.airquality1
-        airquality2 = binding.airquality2
-        airquality3 = binding.airquality3
-        airquality4 = binding.airquality4
+        airPressure1 = binding.airPressure1
+        airPressure2 = binding.airPressure2
+        airPressure3 = binding.airPressure3
+        airPressure4 = binding.airPressure4
 
         // Set a click listener on the search button
         binding.searchButton.setOnClickListener {
@@ -195,10 +195,11 @@ class MainActivity : AppCompatActivity() {
         windForecast2.text = "${responseBody.forecast.forecastday[1].hour[2].wind_mph} MPH"
         windForecast3.text = "${responseBody.forecast.forecastday[1].hour[3].wind_mph} MPH"
         windForecast4.text = "${responseBody.forecast.forecastday[1].hour[4].wind_mph} MPH"
-        airquality1.text = "${responseBody.forecast.forecastday[1].hour[1].air_quality.pm2_5}"
-        airquality2.text = "${responseBody.forecast.forecastday[1].hour[2].air_quality.pm2_5}"
-        airquality3.text = "${responseBody.forecast.forecastday[1].hour[3].air_quality.pm2_5}"
-        airquality4.text = "${responseBody.forecast.forecastday[1].hour[4].air_quality.pm2_5}"
+        airPressure1.text = "${responseBody.forecast.forecastday[1].hour[1].pressure_in}"
+        airPressure2.text = "${responseBody.forecast.forecastday[1].hour[2].pressure_in}"
+        airPressure3.text = "${responseBody.forecast.forecastday[1].hour[3].pressure_in}"
+        airPressure4.text = "${responseBody.forecast.forecastday[1].hour[4].pressure_in}"
+
 
 
 
