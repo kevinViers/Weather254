@@ -5,5 +5,6 @@
     <string name="search_button_text">Search</string>
     <string name="locations_button_text">Locations</string>
     <string name="settings_button_text">Settings</string>
+    <string name="settings_button_description">Settings</string>
 
 </resources>

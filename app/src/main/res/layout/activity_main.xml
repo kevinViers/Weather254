@@ -38,15 +38,16 @@
             android:layout_width="120dp"
             android:layout_height="60dp"
             android:layout_marginEnd="10dp"
-            android:layout_toRightOf="@+id/home_button"
+            android:layout_toEndOf="@+id/home_button"
             android:text="@string/locations_button_text"/>
+
 
         <!-- Define the settings button -->
         <Button
             android:id="@+id/settings_button"
             android:layout_width="120dp"
             android:layout_height="60dp"
-            android:layout_toRightOf="@+id/locations_button"
+            android:layout_toEndOf="@+id/locations_button"
             android:text="@string/settings_button_text"/>
     </RelativeLayout>
 
@@ -58,15 +59,19 @@
         android:background="@color/lightBlue"
         android:orientation="horizontal"
         android:padding="16dp"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/search_layout">
+
 
         <!-- Define the settings button as an image button -->
         <ImageButton
             android:id="@+id/settings"
             android:layout_width="68dp"
             android:layout_height="match_parent"
-            android:contentDescription="settings"
+            android:contentDescription="@string/settings_button_description"
             app:srcCompat="@drawable/sidebar" />
+
 
         <!-- Define a TextView to display the location name -->
         <TextView
@@ -75,7 +80,8 @@
             android:layout_height="wrap_content"
             android:textSize="48dp"
             android:textColor="@color/black"
-            />
+            android:maxLines="2"
+            android:ellipsize="end" />
 
         <!-- Define a TextView to display the current temperature -->
         <TextView
@@ -113,7 +119,7 @@
         android:maxLines="1"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -123,9 +129,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/search_button_text"
-        android:textColor="@color/black"
+        android:background="@color/darkGray"
+        android:textColor="@color/lightGray"
         android:textSize="24sp"
         android:textStyle="bold" />
+
+
 
 
  </LinearLayout>
