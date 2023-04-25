@@ -4,8 +4,7 @@ package com.C2PG.Weather254
 // Import necessary classes and libraries
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.C2PG.Weather254.databinding.ActivityMainBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -23,6 +22,8 @@ class MainActivity : AppCompatActivity() {
     // Declare variables for view binding and text display
     private lateinit var binding: ActivityMainBinding
     private lateinit var currentTempTextView: TextView
+    private lateinit var cityTextView: TextView
+    private lateinit var stateTextView: TextView
 
     // Define the activity creation function
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +46,13 @@ class MainActivity : AppCompatActivity() {
 
         // Call the getMyData function with a default zip code
         getMyData("92831", false)
+
+        // Get the city and state text views
+        cityTextView = binding.headerLocationNameCity
+        stateTextView = binding.headerLocationNameState
+
+        // Set the headerLocationName TextView to horizontally scroll if it's one word and too long
+        binding.headerLocationName.setHorizontallyScrolling(true)
     }
 
     // Define a function to retrieve weather data from the API
@@ -60,7 +68,7 @@ class MainActivity : AppCompatActivity() {
         val retrofitData = retrofitBuilder.getData(zipCode)
 
         // Handle the response using a callback
-        retrofitData.enqueue(object: Callback<weatherData> {
+        retrofitData.enqueue(object : Callback<weatherData> {
             override fun onResponse(call: Call<weatherData>, response: Response<weatherData>) {
                 // If the response is successful and not for the game, show the weather data
                 if (response.isSuccessful && !game) {
@@ -83,15 +91,29 @@ class MainActivity : AppCompatActivity() {
             }
 
             // Handle API call failure
-            override fun onFailure(call: Call<weatherData>, t:Throwable) {
-                Toast.makeText(applicationContext, "Call Error, Check connection", Toast.LENGTH_LONG).show()
+            override fun onFailure(call: Call<weatherData>, t: Throwable) {
+                Toast.makeText(
+                    applicationContext,
+                    "Call Error, Check connection",
+                    Toast.LENGTH_LONG
+                ).show()
             }
         })
     }
 
+
     // Define a function to display weather data
+// Define a function to display weather data
     private fun showData(responseBody: weatherData) {
         binding.headerLocationName.text = responseBody.location.name
+
+        // Set the font size based on the length of the city name
+        if (responseBody.location.name.split(" ").size == 1) {
+            binding.headerLocationName.textSize = 72F
+        } else {
+            binding.headerLocationName.textSize = 48F
+        }
+
         currentTempTextView.text = "${responseBody.current.temp_f}°F"
     }
 
