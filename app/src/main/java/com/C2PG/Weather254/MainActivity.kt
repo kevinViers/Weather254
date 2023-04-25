@@ -2,6 +2,7 @@
 package com.C2PG.Weather254
 
 // Import necessary classes and libraries
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
@@ -75,11 +76,13 @@ class MainActivity : AppCompatActivity() {
                     val responseBody = response.body()!!
                     showData(responseBody)
                 }
-                // If the response is successful and for the game, update the current temperature text view
+// If the response is successful and for the game, update the current temperature text view
                 else if (response.isSuccessful && game) {
                     val temp = response.body()!!.current.temp_f
-                    currentTempTextView.text = temp.toString() + "°F"
+                    val tempString = getString(R.string.temperature, temp)
+                    currentTempTextView.text = tempString
                 }
+
                 // If the response is not successful and for the game, generate a random zip code and try again
                 else if (!response.isSuccessful && game) {
                     randZip()
@@ -103,7 +106,7 @@ class MainActivity : AppCompatActivity() {
 
 
     // Define a function to display weather data
-// Define a function to display weather data
+    @SuppressLint("StringFormatInvalid")
     private fun showData(responseBody: weatherData) {
         binding.headerLocationName.text = responseBody.location.name
 
@@ -114,7 +117,9 @@ class MainActivity : AppCompatActivity() {
             binding.headerLocationName.textSize = 48F
         }
 
-        currentTempTextView.text = "${responseBody.current.temp_f}°F"
+        val currentTempString = getString(R.string.current_temp, responseBody.current.temp_f.toString())
+        currentTempTextView.text = currentTempString
+
     }
 
     // Call twice when game is clicked to generate two zips
