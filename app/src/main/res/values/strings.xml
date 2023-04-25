@@ -6,7 +6,7 @@
     <string name="locations_button_text">Locations</string>
     <string name="settings_button_text">Settings</string>
     <string name="settings_button_description">Settings</string>
-    <string name="temperature">%s°F</string>
+    <string name="temperature">%1$.1f °F</string>
     <string name="current_temp">%1\$s°F</string>
 
 </resources>
