@@ -144,91 +144,111 @@
         android:orientation="horizontal"
         android:gravity="center"
         android:layout_margin="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/search_layout" >
+        app:layout_constraintTop_toBottomOf="@+id/search_layout">
 
         <!-- A vertical LinearLayout to display the morning temperature -->
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_weight="1">
+
+            <!-- Label for morning temperature -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Morning"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <!-- An ImageView to display the weather condition for the morning -->
             <ImageView
                 android:id="@+id/tem_Morning"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/sunny">
-            </ImageView>
+                android:src="@drawable/sunny"/>
 
             <!-- A TextView to display the temperature for the morning -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="78*C"
-                android:textSize="20dp">
-            </TextView>
+                android:textSize="20sp"/>
         </LinearLayout>
 
-        <!-- Add space between the morning and day weather sections -->
         <Space
-            android:layout_width="50dp"
-            android:layout_height="wrap_content">
-        </Space>
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"/>
 
         <!-- A vertical LinearLayout to display the day temperature -->
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_weight="1">
+
+            <!-- Label for day temperature -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Day"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <!-- Display the weather condition for the day with an image -->
             <ImageView
                 android:id="@+id/tem_Day"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/sunny">
-            </ImageView>
+                android:src="@drawable/sunny"/>
 
             <!-- Display the temperature for the day in Celsius -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="78*C"
-                android:textSize="20dp">
-            </TextView>
+                android:textSize="20sp"/>
+
         </LinearLayout>
 
-        <!-- Add space between the Day and Night weather sections -->
         <Space
-            android:layout_width="50dp"
-            android:layout_height="wrap_content">
-        </Space>
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"/>
 
         <!-- A vertical LinearLayout to display the night temperature -->
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_weight="1">
+
+            <!-- Label for night temperature -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Night"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <!-- Display the weather condition for the night with an image -->
             <ImageView
                 android:id="@+id/tem_Night"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/rain">
-            </ImageView>
+                android:src="@drawable/rain"/>
 
             <!-- Display the temperature for the night in Celsius -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="78*C"
-                android:textSize="20dp">
-            </TextView>
+                android:textSize="20sp"/>
+
         </LinearLayout>
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
