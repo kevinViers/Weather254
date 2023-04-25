@@ -45,11 +45,11 @@
 
         <!-- Define the settings button -->
         <Button
-            android:id="@+id/settings_button"
+            android:id="@+id/game_button"
             android:layout_width="120dp"
             android:layout_height="60dp"
             android:layout_toEndOf="@+id/locations_button"
-            android:text="@string/settings_button_text"/>
+            android:text="Game"/>
     </RelativeLayout>
 
     <!-- Define the top layout -->

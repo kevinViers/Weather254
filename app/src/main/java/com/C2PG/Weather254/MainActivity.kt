@@ -3,6 +3,7 @@ package com.C2PG.Weather254
 
 // Import necessary classes and libraries
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
@@ -12,7 +13,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import kotlin.random.Random
 
 // Define the base URL for the API
 private const val bURL = "https://api.weatherapi.com/v1/"
@@ -20,8 +20,6 @@ private const val API: String = "e55db302eb8c403a89801251232504"
 
 // Define the main activity class
 class MainActivity : AppCompatActivity() {
-
-
     // Declare variables for view binding and text display
     private lateinit var binding: ActivityMainBinding
     private lateinit var currentTempTextView: TextView
@@ -50,9 +48,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var airPressure2: TextView
     private lateinit var airPressure3: TextView
     private lateinit var airPressure4: TextView
-
-
-
 
 
     // Define the activity creation function
@@ -91,17 +86,22 @@ class MainActivity : AppCompatActivity() {
         airPressure3 = binding.airPressure3
         airPressure4 = binding.airPressure4
 
+        //If Game button click, activity becomes GameActivity
+        binding.gameButton.setOnClickListener {
+            startActivity(Intent(this@MainActivity, GameActivity::class.java))
+        }
+
         // Set a click listener on the search button
         binding.searchButton.setOnClickListener {
             // Get the zip code entered by the user
             val zipCode = binding.zipCodeInput.text.toString()
 
             // Call the getMyData function with the entered zip code
-            getMyData(zipCode, false)
+            getMyData(zipCode)
         }
 
         // Call the getMyData function with a default zip code
-        getMyData("92831", false)
+        getMyData("92831")
 
         // Get the city and state text views
         cityTextView = binding.headerLocationNameCity
@@ -112,7 +112,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     // Define a function to retrieve weather data from the API
-    private fun getMyData(zipCode: String, game: Boolean) {
+    private fun getMyData(zipCode: String) {
         // Create a retrofit builder with the base URL and Gson converter
         val retrofitBuilder = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
@@ -126,28 +126,16 @@ class MainActivity : AppCompatActivity() {
         // Handle the response using a callback
         retrofitData.enqueue(object : Callback<weatherData> {
             override fun onResponse(call: Call<weatherData>, response: Response<weatherData>) {
-                // If the response is successful and not for the game, show the weather data
-                if (response.isSuccessful && !game) {
+                // If the response is successful show the weather data
+                if (response.isSuccessful) {
                     val responseBody = response.body()!!
                     showData(responseBody)
-                }
-// If the response is successful and for the game, update the current temperature text view
-                else if (response.isSuccessful && game) {
-                    val temp = response.body()!!.current.temp_f
-                    val tempString = getString(R.string.temperature, temp)
-                    currentTempTextView.text = tempString
-                }
-
-                // If the response is not successful and for the game, generate a random zip code and try again
-                else if (!response.isSuccessful && game) {
-                    randZip()
                 }
                 // Otherwise, display an error message
                 else {
                     Toast.makeText(applicationContext, "Zipcode Error", Toast.LENGTH_LONG).show()
                 }
             }
-
             // Handle API call failure
             override fun onFailure(call: Call<weatherData>, t: Throwable) {
                 Toast.makeText(
@@ -158,7 +146,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
-
 
     // Define a function to display weather data
     @SuppressLint("StringFormatInvalid")
@@ -174,6 +161,7 @@ class MainActivity : AppCompatActivity() {
 
         val currentTempString = getString(R.string.current_temp, responseBody.current.temp_f.toString())
         currentTempTextView.text = currentTempString
+
         val maxTempString = getString(R.string.temperature, responseBody.forecast.forecastday[0].day.maxtemp_f)
         maxTemp.text = maxTempString
         minTemp.text = "${responseBody.forecast.forecastday[0].day.mintemp_f}"
@@ -199,18 +187,5 @@ class MainActivity : AppCompatActivity() {
         airPressure2.text = "${responseBody.forecast.forecastday[1].hour[2].pressure_in}"
         airPressure3.text = "${responseBody.forecast.forecastday[1].hour[3].pressure_in}"
         airPressure4.text = "${responseBody.forecast.forecastday[1].hour[4].pressure_in}"
-
-
-
-
-    }
-
-    // Call twice when game is clicked to generate two zips
-    private fun randZip() {
-        val random = Random
-        val zipCode = random.nextInt(99999 - 10000) + 10000
-        val newZipCode = String.format("%05d", zipCode)
-
-        getMyData(newZipCode, true)
     }
 }
