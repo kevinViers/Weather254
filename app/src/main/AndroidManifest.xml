@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:largeHeap="true"
         android:theme="@style/Theme.Weather254"
+        android:forceDarkAllowed="false"
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"
@@ -23,8 +24,8 @@
             </intent-filter>
         </activity>
         <activity
-        android:name=".GameActivity"
-        android:exported="false"
-        />
+            android:name=".GameActivity"
+            android:exported="false"
+            />
     </application>
 </manifest>

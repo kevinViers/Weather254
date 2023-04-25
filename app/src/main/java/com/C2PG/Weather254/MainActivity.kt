@@ -13,6 +13,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import androidx.appcompat.app.AppCompatDelegate
 
 // Define the base URL for the API
 private const val bURL = "https://api.weatherapi.com/v1/"
@@ -52,6 +53,7 @@ class MainActivity : AppCompatActivity() {
 
     // Define the activity creation function
     override fun onCreate(savedInstanceState: Bundle?) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
         // Inflate the layout using view binding
         binding = ActivityMainBinding.inflate(layoutInflater)
