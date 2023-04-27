@@ -66,14 +66,14 @@ class GameActivity : AppCompatActivity() {
     }
 
     private fun updateCities() {
-        binding.colderButton.setBackgroundResource(R.color.black)
-        binding.hotterButton.setBackgroundResource(R.color.black)
+        binding.colderButton.setBackgroundResource(R.color.blue)
+        binding.hotterButton.setBackgroundResource(R.color.red)
 
         getMyData(1) { city1Data ->
-            binding.city1.text = city1Data.location.name
+            binding.city1.text = city1Data.location.name +  ", " + city1Data.location.region
             binding.city1.tag = city1Data.current.temp_f
             getMyData(2) { city2Data ->
-                binding.city2.text = city2Data.location.name
+                binding.city2.text = city2Data.location.name + ", " + city2Data.location.region
                 binding.city2.tag = city2Data.current.temp_f
             }
         }
