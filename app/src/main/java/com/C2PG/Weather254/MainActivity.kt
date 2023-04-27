@@ -3,33 +3,41 @@ package com.C2PG.Weather254
 
 // Import necessary classes and libraries
 import android.annotation.SuppressLint
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
+import androidx.annotation.RequiresApi
+import androidx.core.text.parseAsHtml
 import com.C2PG.Weather254.databinding.ActivityMainBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.time.LocalDate
+import java.time.LocalDate.now
+import java.util.Calendar
 import kotlin.random.Random
 
 // Define the base URL for the API
 private const val bURL = "https://api.weatherapi.com/v1/"
-private const val API: String = "e55db302eb8c403a89801251232504"
 
 // Define the main activity class
 class MainActivity : AppCompatActivity() {
 
 
-    // Declare variables for view binding and text display
+    // Declare variable for view binding
     private lateinit var binding: ActivityMainBinding
-    private lateinit var currentTempTextView: TextView
+    // Declare variables for location
     private lateinit var cityTextView: TextView
     private lateinit var stateTextView: TextView
+    // Declare variables for current weather
+    private lateinit var currentTempTextView: TextView
     private lateinit var maxTemp: TextView
     private lateinit var minTemp: TextView
-    // Declare variables for forecast in main activity
+    private lateinit var weather: TextView
+    // Declard variables for forecast
     private lateinit var timeForecast1: TextView
     private lateinit var timeForecast2: TextView
     private lateinit var timeForecast3: TextView
@@ -51,7 +59,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var airPressure3: TextView
     private lateinit var airPressure4: TextView
 
-
+    //
 
 
 
@@ -62,8 +70,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Get the text view for displaying current temperature
+        // Get the text view for displaying current temperature and weather
         currentTempTextView = binding.currentTempTextView
+        weather = binding.weather
 
         // Get the text view for displaying min and max temperature
         maxTemp = binding.maxTempTextView
@@ -90,6 +99,7 @@ class MainActivity : AppCompatActivity() {
         airPressure2 = binding.airPressure2
         airPressure3 = binding.airPressure3
         airPressure4 = binding.airPressure4
+      //  current_temp = binding.currentTemp
 
         // Set a click listener on the search button
         binding.searchButton.setOnClickListener {
@@ -174,31 +184,80 @@ class MainActivity : AppCompatActivity() {
 
         val currentTempString = getString(R.string.current_temp, responseBody.current.temp_f.toString())
         currentTempTextView.text = currentTempString
+        weather.text = "${responseBody.current.condition.text}"
         val maxTempString = getString(R.string.temperature, responseBody.forecast.forecastday[0].day.maxtemp_f)
         maxTemp.text = maxTempString
-        minTemp.text = "${responseBody.forecast.forecastday[0].day.mintemp_f}"
+        val minTempString = getString(R.string.temperature, responseBody.forecast.forecastday[0].day.mintemp_f)
+        minTemp.text = minTempString
 
         // forecast within 4 hours
-        timeForecast1.text = "${responseBody.forecast.forecastday[1].hour[1].time}"
-        timeForecast2.text = "${responseBody.forecast.forecastday[1].hour[2].time}"
-        timeForecast3.text = "${responseBody.forecast.forecastday[1].hour[3].time}"
-        timeForecast4.text = "${responseBody.forecast.forecastday[1].hour[4].time}"
-        tempForecast1.text = "${responseBody.forecast.forecastday[1].hour[1].temp_f}"
-        tempForecast2.text = "${responseBody.forecast.forecastday[1].hour[2].temp_f}"
-        tempForecast3.text = "${responseBody.forecast.forecastday[1].hour[3].temp_f}"
-        tempForecast4.text = "${responseBody.forecast.forecastday[1].hour[4].temp_f}"
-        humidity1.text = "${responseBody.forecast.forecastday[1].hour[1].humidity}%"
-        humidity2.text = "${responseBody.forecast.forecastday[1].hour[2].humidity}%"
-        humidity3.text = "${responseBody.forecast.forecastday[1].hour[3].humidity}%"
-        humidity4.text = "${responseBody.forecast.forecastday[1].hour[4].humidity}%"
-        windForecast1.text = "${responseBody.forecast.forecastday[1].hour[1].wind_mph} MPH"
-        windForecast2.text = "${responseBody.forecast.forecastday[1].hour[2].wind_mph} MPH"
-        windForecast3.text = "${responseBody.forecast.forecastday[1].hour[3].wind_mph} MPH"
-        windForecast4.text = "${responseBody.forecast.forecastday[1].hour[4].wind_mph} MPH"
-        airPressure1.text = "${responseBody.forecast.forecastday[1].hour[1].pressure_in}"
-        airPressure2.text = "${responseBody.forecast.forecastday[1].hour[2].pressure_in}"
-        airPressure3.text = "${responseBody.forecast.forecastday[1].hour[3].pressure_in}"
-        airPressure4.text = "${responseBody.forecast.forecastday[1].hour[4].pressure_in}"
+        var currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+
+        if(currentHour == 23)
+        {
+            timeForecast1.text = "${responseBody.forecast.forecastday[1].hour[0].time}"
+            tempForecast1.text = "${responseBody.forecast.forecastday[1].hour[0].temp_f}"
+            humidity1.text = "${responseBody.forecast.forecastday[1].hour[0].humidity}%"
+            windForecast1.text = "${responseBody.forecast.forecastday[1].hour[0].wind_mph} MPH"
+            airPressure1.text = "${responseBody.forecast.forecastday[1].hour[0].pressure_in}"
+        }else{
+
+            timeForecast1.text = "${responseBody.forecast.forecastday[0].hour[currentHour+1].time}"
+            tempForecast1.text = "${responseBody.forecast.forecastday[0].hour[currentHour+1].temp_f}"
+            humidity1.text = "${responseBody.forecast.forecastday[0].hour[currentHour+1].humidity}%"
+            windForecast1.text = "${responseBody.forecast.forecastday[0].hour[currentHour+1].wind_mph} MPH"
+            airPressure1.text = "${responseBody.forecast.forecastday[0].hour[currentHour+1].pressure_in}"
+        }
+
+        if(currentHour == 22)
+        {
+            timeForecast2.text = "${responseBody.forecast.forecastday[1].hour[0].time}"
+            tempForecast2.text = "${responseBody.forecast.forecastday[1].hour[0].temp_f}"
+            humidity2.text = "${responseBody.forecast.forecastday[1].hour[0].humidity}%"
+            windForecast2.text = "${responseBody.forecast.forecastday[1].hour[0].wind_mph} MPH"
+            airPressure2.text = "${responseBody.forecast.forecastday[1].hour[0].pressure_in}"
+        }else{
+            timeForecast2.text = "${responseBody.forecast.forecastday[0].hour[currentHour+2].time}"
+            tempForecast2.text = "${responseBody.forecast.forecastday[0].hour[currentHour+2].temp_f}"
+            humidity2.text = "${responseBody.forecast.forecastday[0].hour[currentHour+2].humidity}%"
+            windForecast2.text = "${responseBody.forecast.forecastday[0].hour[currentHour+2].wind_mph} MPH"
+            airPressure2.text = "${responseBody.forecast.forecastday[0].hour[currentHour+2].pressure_in}"
+        }
+
+        if(currentHour == 21)
+        {
+            timeForecast3.text = "${responseBody.forecast.forecastday[1].hour[0].time}"
+            tempForecast3.text = "${responseBody.forecast.forecastday[1].hour[0].temp_f}"
+            humidity3.text = "${responseBody.forecast.forecastday[1].hour[0].humidity}%"
+            windForecast3.text = "${responseBody.forecast.forecastday[1].hour[0].wind_mph} MPH"
+            airPressure3.text = "${responseBody.forecast.forecastday[1].hour[0].pressure_in}"
+        }else{
+            timeForecast3.text = "${responseBody.forecast.forecastday[0].hour[currentHour+3].time}"
+            tempForecast3.text = "${responseBody.forecast.forecastday[0].hour[currentHour+3].temp_f}"
+            humidity3.text = "${responseBody.forecast.forecastday[0].hour[currentHour+3].humidity}%"
+            windForecast3.text = "${responseBody.forecast.forecastday[0].hour[currentHour+3].wind_mph} MPH"
+            airPressure3.text = "${responseBody.forecast.forecastday[0].hour[currentHour+3].pressure_in}"
+        }
+
+        if(currentHour == 20)
+        {
+            timeForecast4.text = "${responseBody.forecast.forecastday[1].hour[0].time}"
+            tempForecast4.text = "${responseBody.forecast.forecastday[1].hour[0].temp_f}"
+            humidity4.text = "${responseBody.forecast.forecastday[1].hour[0].humidity}%"
+            windForecast4.text = "${responseBody.forecast.forecastday[1].hour[0].wind_mph} MPH"
+            airPressure4.text = "${responseBody.forecast.forecastday[1].hour[0].pressure_in}"
+        }else{
+            timeForecast4.text = "${responseBody.forecast.forecastday[0].hour[currentHour+4].time}"
+            tempForecast4.text = "${responseBody.forecast.forecastday[0].hour[currentHour+4].temp_f}"
+            humidity4.text = "${responseBody.forecast.forecastday[0].hour[currentHour+4].humidity}%"
+            windForecast4.text = "${responseBody.forecast.forecastday[0].hour[currentHour+4].wind_mph} MPH"
+            airPressure4.text = "${responseBody.forecast.forecastday[0].hour[currentHour+4].pressure_in}"
+        }
+
+
+
+
+       // current_temp.setImageResource(responseBody.current.condition.code)
 
 
 
