@@ -67,7 +67,7 @@
         <ImageButton
             android:id="@+id/settings"
             android:layout_width="68dp"
-            android:layout_height="match_parent"
+            android:layout_height="100dp"
             android:contentDescription="settings"
             app:srcCompat="@drawable/sidebar" />
 
@@ -154,7 +154,7 @@
         android:background="@color/lightBlue"
         android:gravity="center"
         android:orientation="horizontal"
-
+        app:layout_constraintBottom_toTopOf="@+id/tem1_layout"
         app:layout_constraintTop_toBottomOf="@+id/search_layout"
         tools:layout_editor_absoluteX="30dp">
 
