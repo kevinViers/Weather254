@@ -3,6 +3,7 @@ package com.C2PG.Weather254
 
 // Import necessary classes and libraries
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -70,6 +71,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.gameButton.setOnClickListener {
+            startActivity(Intent(this@MainActivity, GameActivity::class.java))
+        }
+
         // Get the text view for displaying current temperature and weather
         currentTempTextView = binding.currentTempTextView
         weather = binding.weather
@@ -131,7 +136,7 @@ class MainActivity : AppCompatActivity() {
             .create(ApiInterface::class.java)
 
         // Get the weather data for the given zip code
-        val retrofitData = retrofitBuilder.getData(zipCode)
+        val retrofitData = retrofitBuilder.getForecastData(zipCode)
 
         // Handle the response using a callback
         retrofitData.enqueue(object : Callback<weatherData> {

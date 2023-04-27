@@ -26,7 +26,6 @@ class GameActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-
         var streak = 0
 
         binding.homeButton.setOnClickListener {
@@ -117,7 +116,7 @@ class GameActivity : AppCompatActivity() {
                 } } }
 
     }
-    private fun getMyData(cityNum: Int): weatherData? {
+    private fun getMyData(cityNum: Int): currentGameData? {
         // Create a retrofit builder with the base URL and Gson converter
         val retrofitBuilder = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
@@ -129,14 +128,14 @@ class GameActivity : AppCompatActivity() {
         val zipCode = random.nextInt(99999 - 10000) + 10000
         val newZipCode = String.format("%05d", zipCode)
 
-        var responseBody: weatherData? = null
+        var responseBody: currentGameData? = null
 
         // Get the weather data for the given zip code
-        val retrofitData = retrofitBuilder.getData(newZipCode)
+        val retrofitData = retrofitBuilder.getCurrentData(newZipCode)
 
         // Handle the response using a callback
-        retrofitData.enqueue(object : Callback<weatherData> {
-            override fun onResponse(call: Call<weatherData>, response: Response<weatherData>) {
+        retrofitData.enqueue(object : Callback<currentGameData> {
+            override fun onResponse(call: Call<currentGameData>, response: Response<currentGameData>) {
                 // If the response is successful and not for the game, show the weather data
                 if (response.isSuccessful) {
                     if (cityNum == 1) {
@@ -150,7 +149,7 @@ class GameActivity : AppCompatActivity() {
                     responseBody = response.body()!!
                 }}
             // Handle API call failure
-            override fun onFailure(call: Call<weatherData>, t: Throwable) {
+            override fun onFailure(call: Call<currentGameData>, t: Throwable) {
                 Toast.makeText(
                     applicationContext,
                     "Call Error, Check connection",
