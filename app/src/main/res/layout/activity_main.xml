@@ -30,7 +30,7 @@
             android:layout_height="60dp"
             android:layout_marginEnd="10dp"
             android:contextClickable="true"
-            android:text="@string/app_name"
+            android:text="@string/app_name2"
             />
 
         <!-- Define the saved locations button -->
@@ -145,6 +145,29 @@
             android:textStyle="bold" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/search_layout"
+        app:layout_constraintBottom_toTopOf="@+id/weather_layout"
+        tools:ignore="MissingConstraints">
+        <Space
+            android:layout_width="220dp"
+            android:layout_height="wrap_content">
+
+        </Space>
+
+        <Switch
+            android:id="@+id/btnSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:showText="true"
+            android:thumb = "@drawable/thumb"
+            app:track="@drawable/track">
+
+        </Switch>
+    </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/weather_layout"
@@ -195,9 +218,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="weather"
-                    android:textSize="25dp">
+                    android:textSize="25dp"
+                    tools:viewBindingType="android.widget.TextView">
 
                 </TextView>
+
+
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -236,7 +262,7 @@
                     </LinearLayout>
 
                     <Space
-                        android:layout_width="50dp"
+                        android:layout_width="40dp"
                         android:layout_height="wrap_content">
 
                     </Space>

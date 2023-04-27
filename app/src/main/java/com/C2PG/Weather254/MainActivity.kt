@@ -8,6 +8,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
+import androidx.annotation.Nullable
 import androidx.annotation.RequiresApi
 import androidx.core.text.parseAsHtml
 import com.C2PG.Weather254.databinding.ActivityMainBinding
@@ -59,8 +60,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var airPressure2: TextView
     private lateinit var airPressure3: TextView
     private lateinit var airPressure4: TextView
-
-    //
+    // Declared variable for switch button
+    private lateinit var btnSwitch: Switch
 
 
 
@@ -104,7 +105,9 @@ class MainActivity : AppCompatActivity() {
         airPressure2 = binding.airPressure2
         airPressure3 = binding.airPressure3
         airPressure4 = binding.airPressure4
-        //  current_temp = binding.currentTemp
+        // Get the status for switch button
+        btnSwitch = binding.btnSwitch
+
 
         // Set a click listener on the search button
         binding.searchButton.setOnClickListener {
@@ -187,20 +190,23 @@ class MainActivity : AppCompatActivity() {
             binding.headerLocationName.textSize = 48F
         }
 
+        // Display current temperature and condition, and min and max temperature
         val currentTempString = getString(R.string.current_temp, responseBody.current.temp_f.toString())
         currentTempTextView.text = currentTempString
-        weather.text = "${responseBody.current.condition.text}"
         val maxTempString = getString(R.string.temperature, responseBody.forecast.forecastday[0].day.maxtemp_f)
         maxTemp.text = maxTempString
         val minTempString = getString(R.string.temperature, responseBody.forecast.forecastday[0].day.mintemp_f)
         minTemp.text = minTempString
+        val weatherConditon = responseBody.forecast.forecastday[0]
+        weather.text = "${weatherConditon.hour[0].condition.text}"
 
         // forecast within 4 hours
         val currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
         val forecastDay = responseBody.forecast.forecastday[0]
 
+
         // Check if the hour array has enough elements before accessing values
-        if (forecastDay.hour.size > currentHour + 4) {
+
             for (i in 1..4) {
                 val hourIndex = if (currentHour + i >= 24) (currentHour + i) % 24 else currentHour + i
                 val dayIndex = if (currentHour + i >= 24) 1 else 0
@@ -209,37 +215,120 @@ class MainActivity : AppCompatActivity() {
                 when (i) {
                     1 -> {
                         timeForecast1.text = "${currentHourData.time}"
-                        tempForecast1.text = "${currentHourData.temp_f}"
+                        tempForecast1.text = "${currentHourData.temp_f}°F"
                         humidity1.text = "${currentHourData.humidity}%"
                         windForecast1.text = "${currentHourData.wind_mph} MPH"
                         airPressure1.text = "${currentHourData.pressure_in}"
+
                     }
                     2 -> {
                         timeForecast2.text = "${currentHourData.time}"
-                        tempForecast2.text = "${currentHourData.temp_f}"
+                        tempForecast2.text = "${currentHourData.temp_f}°F"
                         humidity2.text = "${currentHourData.humidity}%"
                         windForecast2.text = "${currentHourData.wind_mph} MPH"
                         airPressure2.text = "${currentHourData.pressure_in}"
+
                     }
                     3 -> {
                         timeForecast3.text = "${currentHourData.time}"
-                        tempForecast3.text = "${currentHourData.temp_f}"
+                        tempForecast3.text = "${currentHourData.temp_f}°F"
                         humidity3.text = "${currentHourData.humidity}%"
                         windForecast3.text = "${currentHourData.wind_mph} MPH"
                         airPressure3.text = "${currentHourData.pressure_in}"
+
                     }
                     4 -> {
                         timeForecast4.text = "${currentHourData.time}"
-                        tempForecast4.text = "${currentHourData.temp_f}"
+                        tempForecast4.text = "${currentHourData.temp_f}°F"
                         humidity4.text = "${currentHourData.humidity}%"
                         windForecast4.text = "${currentHourData.wind_mph} MPH"
                         airPressure4.text = "${currentHourData.pressure_in}"
+
                     }
                 }
             }
-        } else {
-            Toast.makeText(applicationContext, "Not enough forecast data available", Toast.LENGTH_LONG).show()
+
+        // Swap the switch button to convert unit between Fahrenheit and Celsuis
+        btnSwitch.setOnClickListener()
+        {
+            if (btnSwitch.isChecked) {
+                val currentTempString = responseBody.forecast.forecastday[0].hour[0]
+                currentTempTextView.text = "${currentTempString.temp_c}°C"
+                val maxTempString = responseBody.forecast.forecastday[0]
+                maxTemp.text = "${maxTempString.day.maxtemp_c}°C"
+                val minTempString = responseBody.forecast.forecastday[0]
+                minTemp.text = "${maxTempString.day.mintemp_c}°C"
+                for (i in 1..4) {
+                    val hourIndex = if (currentHour + i >= 24) (currentHour + i) % 24 else currentHour + i
+                    val dayIndex = if (currentHour + i >= 24) 1 else 0
+                    val currentHourData = responseBody.forecast.forecastday[dayIndex].hour[hourIndex]
+
+                    when (i) {
+                        1 -> {
+                            timeForecast1.text = "${currentHourData.time}"
+                            tempForecast1.text = "${currentHourData.temp_c}°C"
+                            humidity1.text = "${currentHourData.humidity}%"
+                            windForecast1.text = "${currentHourData.wind_mph} MPH"
+                            airPressure1.text = "${currentHourData.pressure_in}"
+
+                        }
+                        2 -> {
+                            timeForecast2.text = "${currentHourData.time}"
+                            tempForecast2.text = "${currentHourData.temp_c}°C"
+                            humidity2.text = "${currentHourData.humidity}%"
+                            windForecast2.text = "${currentHourData.wind_mph} MPH"
+                            airPressure2.text = "${currentHourData.pressure_in}"
+
+                        }
+                        3 -> {
+                            timeForecast3.text = "${currentHourData.time}"
+                            tempForecast3.text = "${currentHourData.temp_c}°C"
+                            humidity3.text = "${currentHourData.humidity}%"
+                            windForecast3.text = "${currentHourData.wind_mph} MPH"
+                            airPressure3.text = "${currentHourData.pressure_in}"
+
+                        }
+                        4 -> {
+                            timeForecast4.text = "${currentHourData.time}"
+                            tempForecast4.text = "${currentHourData.temp_c}°C"
+                            humidity4.text = "${currentHourData.humidity}%"
+                            windForecast4.text = "${currentHourData.wind_mph} MPH"
+                            airPressure4.text = "${currentHourData.pressure_in}"
+
+                        }
+                    }
+                }
+            } else {
+                val currentTempString = responseBody.forecast.forecastday[0].hour[0]
+                currentTempTextView.text = "${currentTempString.temp_f}°F"
+                val maxTempString = responseBody.forecast.forecastday[0]
+                maxTemp.text = "${maxTempString.day.maxtemp_f}°F"
+                val minTempString = responseBody.forecast.forecastday[0]
+                minTemp.text = "${maxTempString.day.mintemp_f}°F"
+                for (i in 1..4) {
+                    val hourIndex = if (currentHour + i >= 24) (currentHour + i) % 24 else currentHour + i
+                    val dayIndex = if (currentHour + i >= 24) 1 else 0
+                    val currentHourData = responseBody.forecast.forecastday[dayIndex].hour[hourIndex]
+
+                    when (i) {
+                        1 -> {
+                            tempForecast1.text = "${currentHourData.temp_f}°F"
+                        }
+                        2 -> {
+                            tempForecast2.text = "${currentHourData.temp_f}°F"
+                        }
+                        3 -> {
+                            tempForecast3.text = "${currentHourData.temp_f}°F"
+                        }
+                        4 -> {
+                            tempForecast4.text = "${currentHourData.temp_f}°F"
+
+                        }
+                    }
+                }
+            }
         }
+
     }
 
 
