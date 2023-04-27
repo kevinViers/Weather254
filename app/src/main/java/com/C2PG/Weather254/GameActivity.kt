@@ -11,6 +11,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.random.Random
+import kotlinx.coroutines.*
 
 private const val bURL = "https://api.weatherapi.com/v1/"
 
@@ -20,104 +21,66 @@ class GameActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Inflate the layout using view binding
-        System.gc()
         binding = ActivityGameBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
         var streak = 0
 
         binding.homeButton.setOnClickListener {
             startActivity(Intent(this@GameActivity, MainActivity::class.java))
         }
-        var check: Boolean = false
-        var city1 = getMyData(1)
-        var city2 = getMyData(2)
 
-        //Initial setup (city names and temp)
-        while (!check)
-        {
-            when(city1)
-            {
-                null -> city1 = getMyData(1)
-                else -> check = true
-            }
-        }
-        check = false
-        while (!check)
-        {
-            when(city2)
-            {
-                null -> city2 = getMyData(1)
-                else -> check = true
-            }
-        }
+        updateCities()
 
         binding.colderButton.setOnClickListener {
-            if ((city1?.current?.temp_f ?:Double.MIN_VALUE) <= (city2?.current?.temp_f ?: Double.MIN_VALUE))
-            {
-                streak +=1
+            val city1Temp = binding.city1.tag as? Double ?: Double.NEGATIVE_INFINITY
+            val city2Temp = binding.city2.tag as? Double ?: Double.POSITIVE_INFINITY
+
+            if (city1Temp <= city2Temp) {
+                streak += 1
                 binding.streakPoints.text = String.format("%d", streak)
                 binding.colderButton.setBackgroundResource(R.color.green)
-            }
-            else
-            {
+            } else {
                 streak = 0
                 binding.streakPoints.text = String.format("%d", streak)
             }
 
-            while (!check)
-            {
-                when(city1)
-                {
-                    null -> city1 = getMyData(1)
-                    else -> check = true
-                }
-            }
-            check = false
-            while (!check)
-            {
-                when(city2)
-                {
-                    null -> city2 = getMyData(1)
-                    else -> check = true
-                }
-            }
+            updateCities()
         }
+
         binding.hotterButton.setOnClickListener {
-            if ((city1?.current?.temp_f ?:Double.MIN_VALUE) >= (city2?.current?.temp_f ?: Double.MIN_VALUE))
-            {
-                streak +=1
+            val city1Temp = binding.city1.tag as? Double ?: Double.NEGATIVE_INFINITY
+            val city2Temp = binding.city2.tag as? Double ?: Double.POSITIVE_INFINITY
+
+            if (city1Temp >= city2Temp) {
+                streak += 1
                 binding.streakPoints.text = String.format("%d", streak)
                 binding.hotterButton.setBackgroundResource(R.color.green)
-            }
-            else
-            {
+            } else {
                 streak = 0
                 binding.streakPoints.text = String.format("%d", streak)
             }
 
-            while (!check)
-            {
-                when(city1)
-                {
-                    null -> city1 = getMyData(1)
-                    else -> check = true
-                }
-            }
-            check = false
-            while (!check)
-            {
-                when(city2)
-                {
-                    null -> city2 = getMyData(1)
-                    else -> check = true
-                } } }
-
+            updateCities()
+        }
     }
-    private fun getMyData(cityNum: Int): currentGameData? {
-        // Create a retrofit builder with the base URL and Gson converter
+
+    private fun updateCities() {
+        binding.colderButton.setBackgroundResource(R.color.black)
+        binding.hotterButton.setBackgroundResource(R.color.black)
+
+        getMyData(1) { city1Data ->
+            binding.city1.text = city1Data.location.name
+            binding.city1.tag = city1Data.current.temp_f
+            getMyData(2) { city2Data ->
+                binding.city2.text = city2Data.location.name
+                binding.city2.tag = city2Data.current.temp_f
+            }
+        }
+    }
+
+
+    private fun getMyData(cityNum: Int, onSuccess: (currentGameData) -> Unit) {
         val retrofitBuilder = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(bURL)
@@ -128,35 +91,21 @@ class GameActivity : AppCompatActivity() {
         val zipCode = random.nextInt(99999 - 10000) + 10000
         val newZipCode = String.format("%05d", zipCode)
 
-        var responseBody: currentGameData? = null
-
-        // Get the weather data for the given zip code
         val retrofitData = retrofitBuilder.getCurrentData(newZipCode)
 
-        // Handle the response using a callback
         retrofitData.enqueue(object : Callback<currentGameData> {
             override fun onResponse(call: Call<currentGameData>, response: Response<currentGameData>) {
-                // If the response is successful and not for the game, show the weather data
                 if (response.isSuccessful) {
-                    if (cityNum == 1) {
-                        binding.colderButton.setBackgroundResource(R.color.black)
-                        binding.hotterButton.setBackgroundResource(R.color.black)
-                        binding.city1.text = response.body()!!.location.name
-                    }
-                    else {
-                        binding.city2.text = response.body()!!.location.name
-                    }
-                    responseBody = response.body()!!
-                }}
-            // Handle API call failure
+                    onSuccess(response.body()!!)
+                } else {
+                    getMyData(cityNum, onSuccess)
+                }
+            }
+
             override fun onFailure(call: Call<currentGameData>, t: Throwable) {
-                Toast.makeText(
-                    applicationContext,
-                    "Call Error, Check connection",
-                    Toast.LENGTH_LONG
-                ).show()
+                Toast.makeText(applicationContext, "Call Error, Check connection", Toast.LENGTH_LONG).show()
             }
         })
-        return responseBody
     }
+
 }
