@@ -28,7 +28,6 @@ private const val bURL = "https://api.weatherapi.com/v1/"
 // Define the main activity class
 class MainActivity : AppCompatActivity() {
 
-
     // Declare variable for view binding
     private lateinit var binding: ActivityMainBinding
     // Declare variables for location
@@ -62,7 +61,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var airPressure4: TextView
     // Declared variable for switch button
     private lateinit var btnSwitch: Switch
-
 
 
     // Define the activity creation function
@@ -108,18 +106,17 @@ class MainActivity : AppCompatActivity() {
         // Get the status for switch button
         btnSwitch = binding.btnSwitch
 
-
         // Set a click listener on the search button
         binding.searchButton.setOnClickListener {
             // Get the zip code entered by the user
             val zipCode = binding.zipCodeInput.text.toString()
 
             // Call the getMyData function with the entered zip code
-            getMyData(zipCode, false)
+            getMyData(zipCode)
         }
 
         // Call the getMyData function with a default zip code
-        getMyData("92831", false)
+        getMyData("92831")
 
         // Get the city and state text views
         cityTextView = binding.headerLocationNameCity
@@ -130,7 +127,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     // Define a function to retrieve weather data from the API
-    private fun getMyData(zipCode: String, game: Boolean) {
+    private fun getMyData(zipCode: String) {
         // Create a retrofit builder with the base URL and Gson converter
         val retrofitBuilder = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
@@ -144,21 +141,10 @@ class MainActivity : AppCompatActivity() {
         // Handle the response using a callback
         retrofitData.enqueue(object : Callback<weatherData> {
             override fun onResponse(call: Call<weatherData>, response: Response<weatherData>) {
-                // If the response is successful and not for the game, show the weather data
-                if (response.isSuccessful && !game) {
+                // If the response is successful show the weather data
+                if (response.isSuccessful) {
                     val responseBody = response.body()!!
                     showData(responseBody)
-                }
-// If the response is successful and for the game, update the current temperature text view
-                else if (response.isSuccessful && game) {
-                    val temp = response.body()!!.current.temp_f
-                    val tempString = getString(R.string.temperature, temp)
-                    currentTempTextView.text = tempString
-                }
-
-                // If the response is not successful and for the game, generate a random zip code and try again
-                else if (!response.isSuccessful && game) {
-                    randZip()
                 }
                 // Otherwise, display an error message
                 else {
@@ -176,7 +162,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
-
 
     // Define a function to display weather data
     @SuppressLint("StringFormatInvalid")
@@ -204,9 +189,7 @@ class MainActivity : AppCompatActivity() {
         val currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
         val forecastDay = responseBody.forecast.forecastday[0]
 
-
         // Check if the hour array has enough elements before accessing values
-
             for (i in 1..4) {
                 val hourIndex = if (currentHour + i >= 24) (currentHour + i) % 24 else currentHour + i
                 val dayIndex = if (currentHour + i >= 24) 1 else 0
@@ -328,16 +311,5 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
-    }
-
-
-    // Call twice when game is clicked to generate two zips
-    private fun randZip() {
-        val random = Random
-        val zipCode = random.nextInt(99999 - 10000) + 10000
-        val newZipCode = String.format("%05d", zipCode)
-
-        getMyData(newZipCode, true)
     }
 }

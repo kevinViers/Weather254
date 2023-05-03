@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
 import android.widget.Toast
+import com.C2PG.Weather254.R.*
 import com.C2PG.Weather254.databinding.ActivityGameBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -39,7 +40,7 @@ class GameActivity : AppCompatActivity() {
             if (city1Temp <= city2Temp) {
                 streak += 1
                 binding.streakPoints.text = String.format("%d", streak)
-                binding.colderButton.setBackgroundResource(R.color.green)
+                binding.colderButton.setBackgroundColor(color.green)
             } else {
                 streak = 0
                 binding.streakPoints.text = String.format("%d", streak)
@@ -55,7 +56,7 @@ class GameActivity : AppCompatActivity() {
             if (city1Temp >= city2Temp) {
                 streak += 1
                 binding.streakPoints.text = String.format("%d", streak)
-                binding.hotterButton.setBackgroundResource(R.color.green)
+                binding.hotterButton.setBackgroundColor(color.green)
             } else {
                 streak = 0
                 binding.streakPoints.text = String.format("%d", streak)
@@ -66,8 +67,8 @@ class GameActivity : AppCompatActivity() {
     }
 
     private fun updateCities() {
-        binding.colderButton.setBackgroundResource(R.color.blue)
-        binding.hotterButton.setBackgroundResource(R.color.red)
+        binding.colderButton.setBackgroundColor(color.blue)
+        binding.hotterButton.setBackgroundColor(color.red)
 
         getMyData(1) { city1Data ->
             binding.city1.text = city1Data.location.name +  ", " + city1Data.location.region
@@ -78,7 +79,6 @@ class GameActivity : AppCompatActivity() {
             }
         }
     }
-
 
     private fun getMyData(cityNum: Int, onSuccess: (currentGameData) -> Unit) {
         val retrofitBuilder = Retrofit.Builder()
@@ -101,7 +101,6 @@ class GameActivity : AppCompatActivity() {
                     getMyData(cityNum, onSuccess)
                 }
             }
-
             override fun onFailure(call: Call<currentGameData>, t: Throwable) {
                 Toast.makeText(applicationContext, "Call Error, Check connection", Toast.LENGTH_LONG).show()
             }

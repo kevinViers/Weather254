@@ -106,9 +106,10 @@
         android:textSize="26dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/city1"
-        app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteX="170dp" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/colder_button"
@@ -131,7 +132,8 @@
         android:layout_height="153dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="17dp"
-        android:background="@color/red"
+        android:backgroundTint="@color/red"
+        android:textColor="@color/white"
         android:text="Hotter"
         app:layout_constraintBottom_toTopOf="@+id/textView7"
         app:layout_constraintEnd_toEndOf="parent"
